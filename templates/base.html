@@ -1,0 +1,44 @@
+{% block body %}
+    {% for favorite in favorites %}
+        <div class="row mb-3 py-3 justify-content-center ">
+            <div class="card shadow rounded p-3 col-12 col-lg-8 mx-auto " id="card">
+                <div class="row ">
+                    <div class="col-12 col-md-5 d-flex justify-content-center align-items-center">
+                        <img class="card-img img-fluid" src="{{ favorite.thumbnailURL }}" alt="Card image">
+                    </div>
+                    <div class="col-12 col-md-4 d-flex flex-column justify-content-start">
+                        <h4 class="ven-name mb-2">{{ favorite.venue }}</h4>
+                        <h3 class="text-secondary mb-auto my-3">{{ favorite.event }}</h3>
+                        <h5 class="text-secondary mt-auto">{{ favorite.venueAddress }}</h5>
+                        <h5 class="text-secondary">{{ favorite.venueCity }} {{ favorite.venueState }}</h5>
+                        <div class="btn-container mt-auto" id="button-container">
+                            <a href="{{ favorite.link }}" class="btn btn-primary mt-auto" role="button">Find Tickets</a>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
+                        <div class="text-success text-right p-3">
+                            <h3 id="message"></h3>
+                            <h4>{{ favorite.date }}</h4>
+                            <h4>{{ favorite.startTime }}</h4>
+                        </div>
+                        <div>
+                            <button id="favorite-btn-{{ favorite.entry_model_id }}"
+                                    class="btn favorites-button {% if favorite.entry_model_id %}btn-danger{% else %}btn-success{% endif %}"
+                                    data-event-id="{{ favorite.entry_model_id }}"
+                                    data-event-name="{{ favorite.event }}"
+                                    data-thumbnail="{{ favorite.thumbnailURL }}"
+                                    data-venue-name="{{ favorite.venue }}"
+                                    data-venue-address="{{ favorite.venueAddress }}"
+                                    data-venue-city="{{ favorite.venueCity }}"
+                                    data-venue-state="{{ favorite.venueState }}"
+                                    data-date="{{ favorite.date }}"
+                                    onclick="toggleFavorite(this)">
+                                {% if favorite.entry_model_id %}Unfavorite{% else %}Favorite{% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
